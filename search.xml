@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>这是一个图片测试</title>
+      <link href="/2021/07/10/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/"/>
+      <url>/2021/07/10/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[<p>​    里面是一张索米</p><p><img src="/2021/07/10/%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/1.jpg" alt="1"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试 </tag>
+            
+            <tag> 图片 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>这是一个测试</title>
       <link href="/2021/06/30/article-title/"/>
       <url>/2021/06/30/article-title/</url>
