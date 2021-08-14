@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-duotone-space.css" type="text/css"></head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 
 
@@ -474,257 +474,257 @@
 <h5 id="5、创建用户nginx"><a href="#5、创建用户nginx" class="headerlink" title="5、创建用户nginx"></a>5、创建用户nginx</h5><p><code>useradd nginx </code></p>
 <p><code>passwd nginx</code>  （系统用户不给予密码更安全）</p>
 <p><strong>6、安装nginx</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost ~]# wget http:&#x2F;&#x2F;nginx.org&#x2F;download&#x2F;nginx-1.16.0.tar.gz
-[root@localhost ~]# tar xzf nginx-1.16.0.tar.gz -C &#x2F;usr&#x2F;local&#x2F;
-[root@localhost ~]# cd nginx-1.16.0
-[root@localhost ~]# wget https:&#x2F;&#x2F;github.com&#x2F;openresty&#x2F;echo-nginx-module&#x2F;archive&#x2F;v0.61.tar.gz  
-    # 此处为下载一个echo-nginx-module模块，可实现在nginx配置文件中使用echo打印，辅助排错，可不装
-[root@localhost ~]# tar xf v0.61.tar.gz
-[root@localhost nginx-1.16.0]# .&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx --group&#x3D;nginx --user&#x3D;nginx --sbin-path&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx --conf-path&#x3D;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf --error-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log --http-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log --http-client-body-temp-path&#x3D;&#x2F;tmp&#x2F;nginx&#x2F;client_body --http-proxy-temp-path&#x3D;&#x2F;tmp&#x2F;nginx&#x2F;proxy --http-fastcgi-temp-path&#x3D;&#x2F;tmp&#x2F;nginx&#x2F;fastcgi --pid-path&#x3D;&#x2F;var&#x2F;run&#x2F;nginx.pid --lock-path&#x3D;&#x2F;var&#x2F;lock&#x2F;nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-pcre --with-http_realip_module --with-stream
-[root@localhost nginx-1.16.0]# make &amp;&amp; make install<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># wget http://nginx.org/download/nginx-1.16.0.tar.gz</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># tar xzf nginx-1.16.0.tar.gz -C /usr/local/</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># cd nginx-1.16.0</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># wget https://github.com/openresty/echo-nginx-module/archive/v0.61.tar.gz  </span>
+    <span class="token comment"># 此处为下载一个echo-nginx-module模块，可实现在nginx配置文件中使用echo打印，辅助排错，可不装</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># tar xf v0.61.tar.gz</span>
+<span class="token punctuation">[</span>root@localhost nginx-1.16.0<span class="token punctuation">]</span><span class="token comment"># ./configure --prefix=/usr/local/nginx --group=nginx --user=nginx --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --http-client-body-temp-path=/tmp/nginx/client_body --http-proxy-temp-path=/tmp/nginx/proxy --http-fastcgi-temp-path=/tmp/nginx/fastcgi --pid-path=/var/run/nginx.pid --lock-path=/var/lock/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-pcre --with-http_realip_module --with-stream</span>
+<span class="token punctuation">[</span>root@localhost nginx-1.16.0<span class="token punctuation">]</span><span class="token comment"># make &amp;&amp; make install</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>7、Nginx 编译参数</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 查看 nginx 安装的模块
-[root@localhost ~]#&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -V
-# 模块参数具体功能 
---with-cc-opt&#x3D;&#39;-g -O2 -fPIE -fstack-protector    &#x2F;&#x2F;设置额外的参数将被添加到CFLAGS变量。（FreeBSD或者ubuntu使用）
---param&#x3D;ssp-buffer-size&#x3D;4 -Wformat -Werror&#x3D;format-security -D_FORTIFY_SOURCE&#x3D;2&#39; 
---with-ld-opt&#x3D;&#39;-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now&#39; 
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 查看 nginx 安装的模块</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment">#/usr/local/nginx/sbin/nginx -V</span>
+<span class="token comment"># 模块参数具体功能 </span>
+--with-cc-opt<span class="token operator">=</span><span class="token string">'-g -O2 -fPIE -fstack-protector    //设置额外的参数将被添加到CFLAGS变量。（FreeBSD或者ubuntu使用）
+--param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2'</span> 
+--with-ld-opt<span class="token operator">=</span><span class="token string">'-Wl,-Bsymbolic-functions -fPIE -pie -Wl,-z,relro -Wl,-z,now'</span> 
 
---prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx                        &#x2F;&#x2F;指向安装目录
---conf-path&#x3D;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf                &#x2F;&#x2F;指定配置文件
---http-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log        &#x2F;&#x2F;指定访问日志
---error-log-path&#x3D;&#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log        &#x2F;&#x2F;指定错误日志
---lock-path&#x3D;&#x2F;var&#x2F;lock&#x2F;nginx.lock                 &#x2F;&#x2F;指定lock文件
---pid-path&#x3D;&#x2F;run&#x2F;nginx.pid                        &#x2F;&#x2F;指定pid文件
+--prefix<span class="token operator">=</span>/usr/local/nginx                        //指向安装目录
+--conf-path<span class="token operator">=</span>/etc/nginx/nginx.conf                //指定配置文件
+--http-log-path<span class="token operator">=</span>/var/log/nginx/access.log        //指定访问日志
+--error-log-path<span class="token operator">=</span>/var/log/nginx/error.log        //指定错误日志
+--lock-path<span class="token operator">=</span>/var/lock/nginx.lock                 //指定lock文件
+--pid-path<span class="token operator">=</span>/run/nginx.pid                        //指定pid文件
 
---http-client-body-temp-path&#x3D;&#x2F;var&#x2F;lib&#x2F;nginx&#x2F;body    &#x2F;&#x2F;设定http客户端请求临时文件路径
---http-fastcgi-temp-path&#x3D;&#x2F;var&#x2F;lib&#x2F;nginx&#x2F;fastcgi     &#x2F;&#x2F;设定http fastcgi临时文件路径
---http-proxy-temp-path&#x3D;&#x2F;var&#x2F;lib&#x2F;nginx&#x2F;proxy         &#x2F;&#x2F;设定http代理临时文件路径
---http-scgi-temp-path&#x3D;&#x2F;var&#x2F;lib&#x2F;nginx&#x2F;scgi           &#x2F;&#x2F;设定http scgi临时文件路径
---http-uwsgi-temp-path&#x3D;&#x2F;var&#x2F;lib&#x2F;nginx&#x2F;uwsgi         &#x2F;&#x2F;设定http uwsgi临时文件路径
+--http-client-body-temp-path<span class="token operator">=</span>/var/lib/nginx/body    //设定http客户端请求临时文件路径
+--http-fastcgi-temp-path<span class="token operator">=</span>/var/lib/nginx/fastcgi     //设定http fastcgi临时文件路径
+--http-proxy-temp-path<span class="token operator">=</span>/var/lib/nginx/proxy         //设定http代理临时文件路径
+--http-scgi-temp-path<span class="token operator">=</span>/var/lib/nginx/scgi           //设定http scgi临时文件路径
+--http-uwsgi-temp-path<span class="token operator">=</span>/var/lib/nginx/uwsgi         //设定http uwsgi临时文件路径
 
---with-debug                                        &#x2F;&#x2F;启用debug日志
---with-pcre-jit                                     &#x2F;&#x2F;编译PCRE包含“just-in-time compilation”
---with-ipv6                                         &#x2F;&#x2F;启用ipv6支持
---with-http_ssl_module                              &#x2F;&#x2F;启用ssl支持
---with-http_stub_status_module                      &#x2F;&#x2F;获取nginx自上次启动以来的状态
---with-http_realip_module                 &#x2F;&#x2F;允许从请求标头更改客户端的IP地址值，默认为关
---with-http_auth_request_module           &#x2F;&#x2F;实现基于一个子请求的结果的客户端授权。如果该子请求返回的2xx响应代码，所述接入是允许的。如果它返回401或403中，访问被拒绝与相应的错误代码。由子请求返回的任何其他响应代码被认为是一个错误。
---with-http_addition_module               &#x2F;&#x2F;作为一个输出过滤器，支持不完全缓冲，分部分响应请求
---with-http_dav_module                    &#x2F;&#x2F;增加PUT,DELETE,MKCOL：创建集合,COPY和MOVE方法 默认关闭，需编译开启
---with-http_geoip_module                  &#x2F;&#x2F;使用预编译的MaxMind数据库解析客户端IP地址，得到变量值
---with-http_gunzip_module                 &#x2F;&#x2F;它为不支持“gzip”编码方法的客户端解压具有“Content-Encoding: gzip”头的响应。
---with-http_gzip_static_module            &#x2F;&#x2F;在线实时压缩输出数据流
---with-http_image_filter_module           &#x2F;&#x2F;传输JPEG&#x2F;GIF&#x2F;PNG 图片的一个过滤器）（默认为不启用。gd库要用到）
---with-http_spdy_module                   &#x2F;&#x2F;SPDY可以缩短网页的加载时间
---with-http_sub_module                    &#x2F;&#x2F;允许用一些其他文本替换nginx响应中的一些文本
---with-http_xslt_module                   &#x2F;&#x2F;过滤转换XML请求
---with-mail                               &#x2F;&#x2F;启用POP3&#x2F;IMAP4&#x2F;SMTP代理模块支持
---with-mail_ssl_module                    &#x2F;&#x2F;启用ngx_mail_ssl_module支持启用外部模块支持<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+--with-debug                                        //启用debug日志
+--with-pcre-jit                                     //编译PCRE包含“just-in-time compilation”
+--with-ipv6                                         //启用ipv6支持
+--with-http_ssl_module                              //启用ssl支持
+--with-http_stub_status_module                      //获取nginx自上次启动以来的状态
+--with-http_realip_module                 //允许从请求标头更改客户端的IP地址值，默认为关
+--with-http_auth_request_module           //实现基于一个子请求的结果的客户端授权。如果该子请求返回的2xx响应代码，所述接入是允许的。如果它返回401或403中，访问被拒绝与相应的错误代码。由子请求返回的任何其他响应代码被认为是一个错误。
+--with-http_addition_module               //作为一个输出过滤器，支持不完全缓冲，分部分响应请求
+--with-http_dav_module                    //增加PUT,DELETE,MKCOL：创建集合,COPY和MOVE方法 默认关闭，需编译开启
+--with-http_geoip_module                  //使用预编译的MaxMind数据库解析客户端IP地址，得到变量值
+--with-http_gunzip_module                 //它为不支持“gzip”编码方法的客户端解压具有“Content-Encoding: gzip”头的响应。
+--with-http_gzip_static_module            //在线实时压缩输出数据流
+--with-http_image_filter_module           //传输JPEG/GIF/PNG 图片的一个过滤器）（默认为不启用。gd库要用到）
+--with-http_spdy_module                   //SPDY可以缩短网页的加载时间
+--with-http_sub_module                    //允许用一些其他文本替换nginx响应中的一些文本
+--with-http_xslt_module                   //过滤转换XML请求
+--with-mail                               //启用POP3/IMAP4/SMTP代理模块支持
+--with-mail_ssl_module                    //启用ngx_mail_ssl_module支持启用外部模块支持<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>8、修改配置文件/etc/nginx/nginx.conf</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"># 全局参数设置 
-worker_processes  4;          #设置nginx启动进程的数量，一般设置成与逻辑cpu数量相同 
-error_log  logs&#x2F;error.log;    #指定错误日志 
-worker_rlimit_nofile 102400;  #设置一个nginx进程能打开的最大文件数 
-pid        &#x2F;var&#x2F;run&#x2F;nginx.pid; #nginx开启后会在&#x2F;var&#x2F;run&#x2F;下生成nginx.pid:
-include &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;modules&#x2F;*.conf;   # include 目录下的子配置文件继承主配置文件
-events &#123; 
-    worker_connections  1024; #设置一个进程的最大并发连接数 
-&#125;
-# http 服务相关设置 
-http &#123; 
-    include      mime.types; 
-    default_type  application&#x2F;octet-stream; 
-    log_format  main  &#39;remote_addr - remote_user [time_local] &quot;request&quot; &#39;
-                      &#39;status body_bytes_sent &quot;$http_referer&quot; &#39;
-                      &#39;&quot;http_user_agent&quot; &quot;http_x_forwarded_for&quot;&#39;; 
-    access_log  &#x2F;var&#x2F;log&#x2F;nginx&#x2F;access.log  main;    #设置访问日志的位置和格式 
-    sendfile          on; #是否调用sendfile函数输出文件，一般设置为on，若nginx是用来进行磁盘IO负载应用时，可以设置为off，降低系统负载 
-    gzip              on;      #是否开启gzip压缩，将注释去掉开启 
-    keepalive_timeout  65;     #设置长连接的超时时间
-# 虚拟服务器的相关设置 
-include &#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;*.conf;   # include 在&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;下，任意以.conf结尾的配置文件均等效在该模块内可生                                                   效，如下方的 server&#123;&#125;   以及server下的location&#123;&#125;
-        server &#123; 
-        listen      80;        #设置监听的端口 
-        server_name  localhost;        #设置绑定的主机名、域名或ip地址 
-        charset koi8-r;        # 设置编码字符 
-        location &#x2F; &#123; 
-            root  &#x2F;var&#x2F;www&#x2F;nginx;           #设置服务器默认网站的根目录位置,需要手动创建
-            index  index.html index.htm;    #设置默认打开的文档 
-            &#125; 
-        error_page  500 502 503 504  &#x2F;50x.html; #设置错误信息返回页面 
-        location &#x3D; &#x2F;50x.html &#123; 
-            root  html;        #这里的绝对位置是&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;html
-        &#125; 
-    &#125; 
- &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token comment"># 全局参数设置 </span>
+worker_processes  <span class="token number">4</span><span class="token punctuation">;</span>          <span class="token comment">#设置nginx启动进程的数量，一般设置成与逻辑cpu数量相同 </span>
+error_log  logs/error.log<span class="token punctuation">;</span>    <span class="token comment">#指定错误日志 </span>
+worker_rlimit_nofile <span class="token number">102400</span><span class="token punctuation">;</span>  <span class="token comment">#设置一个nginx进程能打开的最大文件数 </span>
+pid        /var/run/nginx.pid<span class="token punctuation">;</span> <span class="token comment">#nginx开启后会在/var/run/下生成nginx.pid:</span>
+include /usr/share/nginx/modules/*.conf<span class="token punctuation">;</span>   <span class="token comment"># include 目录下的子配置文件继承主配置文件</span>
+events <span class="token punctuation">&#123;</span> 
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span> <span class="token comment">#设置一个进程的最大并发连接数 </span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment"># http 服务相关设置 </span>
+http <span class="token punctuation">&#123;</span> 
+    include      mime.types<span class="token punctuation">;</span> 
+    default_type  application/octet-stream<span class="token punctuation">;</span> 
+    log_format  main  <span class="token string">'remote_addr - remote_user [time_local] "request" '</span>
+                      <span class="token string">'status body_bytes_sent "$http_referer" '</span>
+                      <span class="token string">'"http_user_agent" "http_x_forwarded_for"'</span><span class="token punctuation">;</span> 
+    access_log  /var/log/nginx/access.log  main<span class="token punctuation">;</span>    <span class="token comment">#设置访问日志的位置和格式 </span>
+    sendfile          on<span class="token punctuation">;</span> <span class="token comment">#是否调用sendfile函数输出文件，一般设置为on，若nginx是用来进行磁盘IO负载应用时，可以设置为off，降低系统负载 </span>
+    <span class="token function">gzip</span>              on<span class="token punctuation">;</span>      <span class="token comment">#是否开启gzip压缩，将注释去掉开启 </span>
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>     <span class="token comment">#设置长连接的超时时间</span>
+<span class="token comment"># 虚拟服务器的相关设置 </span>
+include /etc/nginx/conf.d/*.conf<span class="token punctuation">;</span>   <span class="token comment"># include 在/etc/nginx/conf.d/下，任意以.conf结尾的配置文件均等效在该模块内可生                                                   效，如下方的 server&#123;&#125;   以及server下的location&#123;&#125;</span>
+        server <span class="token punctuation">&#123;</span> 
+        listen      <span class="token number">80</span><span class="token punctuation">;</span>        <span class="token comment">#设置监听的端口 </span>
+        server_name  localhost<span class="token punctuation">;</span>        <span class="token comment">#设置绑定的主机名、域名或ip地址 </span>
+        charset koi8-r<span class="token punctuation">;</span>        <span class="token comment"># 设置编码字符 </span>
+        location / <span class="token punctuation">&#123;</span> 
+            root  /var/www/nginx<span class="token punctuation">;</span>           <span class="token comment">#设置服务器默认网站的根目录位置,需要手动创建</span>
+            index  index.html index.htm<span class="token punctuation">;</span>    <span class="token comment">#设置默认打开的文档 </span>
+            <span class="token punctuation">&#125;</span> 
+        error_page  <span class="token number">500</span> <span class="token number">502</span> <span class="token number">503</span> <span class="token number">504</span>  /50x.html<span class="token punctuation">;</span> <span class="token comment">#设置错误信息返回页面 </span>
+        location <span class="token operator">=</span> /50x.html <span class="token punctuation">&#123;</span> 
+            root  html<span class="token punctuation">;</span>        <span class="token comment">#这里的绝对位置是/usr/local/nginx/html</span>
+        <span class="token punctuation">&#125;</span> 
+    <span class="token punctuation">&#125;</span> 
+ <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nginx.conf的组成:nginx.conf一共由三部分组成，分别为：全局块、events块、http块。在http块中又包含http全局块、多个server块。每个server块中又包含server全局块以及多个location块。在统一配置块中嵌套的配置快，各个之间不存在次序关系。<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>检测nginx配置文件是否正确</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost ~]# &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx -t
-[root@localhost ~]# mkdir -p &#x2F;tmp&#x2F;nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># /usr/local/nginx/sbin/nginx -t</span>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># mkdir -p /tmp/nginx</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>10、启动nginx服务</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost ~]# &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># /usr/local/nginx/sbin/nginx</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><strong>11、通过 nginx 命令控制 nginx 服务</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nginx -c &#x2F;path&#x2F;nginx.conf  	     # 以特定目录下的配置文件启动nginx:
-nginx -s reload            	 	 # 修改配置后重新加载生效
-nginx -s reopen   			 	 # 重新打开日志文件
-nginx -s stop  				 	 # 快速停止nginx
-nginx -s quit  				  	 # 完整有序的停止nginx
-nginx -t    					 # 测试当前配置文件是否正确
-nginx -t -c &#x2F;path&#x2F;to&#x2F;nginx.conf  # 测试特定的nginx配置文件是否正确
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">nginx -c /path/nginx.conf  	     <span class="token comment"># 以特定目录下的配置文件启动nginx:</span>
+nginx -s reload            	 	 <span class="token comment"># 修改配置后重新加载生效</span>
+nginx -s reopen   			 	 <span class="token comment"># 重新打开日志文件</span>
+nginx -s stop  				 	 <span class="token comment"># 快速停止nginx</span>
+nginx -s quit  				  	 <span class="token comment"># 完整有序的停止nginx</span>
+nginx -t    					 <span class="token comment"># 测试当前配置文件是否正确</span>
+nginx -t -c /path/to/nginx.conf  <span class="token comment"># 测试特定的nginx配置文件是否正确</span>
 
 注意：
 nginx -s reload 命令加载修改后的配置文件,命令下达后发生如下事件
-1. Nginx的master进程检查配置文件的正确性，若是错误则返回错误信息，nginx继续采用原配置文件进行工作（因为worker未受到影响）
-2. Nginx启动新的worker进程，采用新的配置文件
-3. Nginx将新的请求分配新的worker进程
-4. Nginx等待以前的worker进程的全部请求已经都返回后，关闭相关worker进程
-5. 重复上面过程，知道全部旧的worker进程都被关闭掉<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token number">1</span>. Nginx的master进程检查配置文件的正确性，若是错误则返回错误信息，nginx继续采用原配置文件进行工作（因为worker未受到影响）
+<span class="token number">2</span>. Nginx启动新的worker进程，采用新的配置文件
+<span class="token number">3</span>. Nginx将新的请求分配新的worker进程
+<span class="token number">4</span>. Nginx等待以前的worker进程的全部请求已经都返回后，关闭相关worker进程
+<span class="token number">5</span>. 重复上面过程，知道全部旧的worker进程都被关闭掉<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>12、实现nginx开机自启</strong></p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">[root@localhost ~]# vim &#x2F;etc&#x2F;init.d&#x2F;nginx
-#!&#x2F;bin&#x2F;sh 
-# 
-# nginx - this script starts and stops the nginx daemon 
-# 
-# chkconfig:  - 85 15  
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \ 
-#              proxy and IMAP&#x2F;POP3 proxy server 
-# processname: nginx 
-# config:      &#x2F;etc&#x2F;nginx&#x2F;nginx.conf 
-# config:      &#x2F;etc&#x2F;sysconfig&#x2F;nginx 
-# pidfile:    &#x2F;var&#x2F;run&#x2F;nginx.pid 
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># vim /etc/init.d/nginx</span>
+<span class="token comment">#!/bin/sh </span>
+<span class="token comment"># </span>
+<span class="token comment"># nginx - this script starts and stops the nginx daemon </span>
+<span class="token comment"># </span>
+<span class="token comment"># chkconfig:  - 85 15  </span>
+<span class="token comment"># description:  Nginx is an HTTP(S) server, HTTP(S) reverse \ </span>
+<span class="token comment">#              proxy and IMAP/POP3 proxy server </span>
+<span class="token comment"># processname: nginx </span>
+<span class="token comment"># config:      /etc/nginx/nginx.conf </span>
+<span class="token comment"># config:      /etc/sysconfig/nginx </span>
+<span class="token comment"># pidfile:    /var/run/nginx.pid </span>
   
-# Source function library. 
-. &#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;functions
+<span class="token comment"># Source function library. </span>
+<span class="token builtin class-name">.</span> /etc/rc.d/init.d/functions
   
-# Source networking configuration. 
-. &#x2F;etc&#x2F;sysconfig&#x2F;network
+<span class="token comment"># Source networking configuration. </span>
+<span class="token builtin class-name">.</span> /etc/sysconfig/network
   
-# Check that networking is up. 
-[ &quot;$NETWORKING&quot; &#x3D; &quot;no&quot; ] &amp;&amp; exit 0 
+<span class="token comment"># Check that networking is up. </span>
+<span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$NETWORKING</span>"</span> <span class="token operator">=</span> <span class="token string">"no"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">exit</span> <span class="token number">0</span> 
   
-nginx&#x3D;&quot;&#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx&quot;
-prog&#x3D;$(basename $nginx) 
+<span class="token assign-left variable">nginx</span><span class="token operator">=</span><span class="token string">"/usr/local/nginx/sbin/nginx"</span>
+<span class="token assign-left variable">prog</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> $nginx<span class="token variable">)</span></span> 
   
-NGINX_CONF_FILE&#x3D;&quot;&#x2F;etc&#x2F;nginx&#x2F;nginx.conf&quot;
+<span class="token assign-left variable">NGINX_CONF_FILE</span><span class="token operator">=</span><span class="token string">"/etc/nginx/nginx.conf"</span>
   
-[ -f &#x2F;etc&#x2F;sysconfig&#x2F;nginx ] &amp;&amp; . &#x2F;etc&#x2F;sysconfig&#x2F;nginx
+<span class="token punctuation">[</span> -f /etc/sysconfig/nginx <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">.</span> /etc/sysconfig/nginx
   
-lockfile&#x3D;&#x2F;var&#x2F;lock&#x2F;nginx
+<span class="token assign-left variable">lockfile</span><span class="token operator">=</span>/var/lock/nginx
   
-make_dirs() &#123; 
-  # make required directories 
-  user&#x3D;&#96;nginx -V 2&gt;&amp;1 | grep &quot;configure arguments:&quot; | sed &#39;s&#x2F;[^*]*--user&#x3D;\([^ ]*\).*&#x2F;\1&#x2F;g&#39; -&#96; 
-  options&#x3D;&#96;$nginx -V 2&gt;&amp;1 | grep &#39;configure arguments:&#39;&#96; 
-  for opt in $options; do
-      if [ &#96;echo $opt | grep &#39;.*-temp-path&#39;&#96; ]; then
-          value&#x3D;&#96;echo $opt | cut -d &quot;&#x3D;&quot; -f 2&#96; 
-          if [ ! -d &quot;$value&quot; ]; then
-              # echo &quot;creating&quot; $value 
-              mkdir -p $value &amp;&amp; chown -R $user $value 
-          fi
-      fi
-  done
-&#125; 
+<span class="token function-name function">make_dirs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+  <span class="token comment"># make required directories </span>
+  <span class="token assign-left variable">user</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span>nginx -V <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">"configure arguments:"</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'s/[^*]*--user=\([^ ]*\).*/\1/g'</span> -<span class="token variable">`</span></span> 
+  <span class="token assign-left variable">options</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span>$nginx -V <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'configure arguments:'</span><span class="token variable">`</span></span> 
+  <span class="token keyword">for</span> <span class="token for-or-select variable">opt</span> <span class="token keyword">in</span> <span class="token variable">$options</span><span class="token punctuation">;</span> <span class="token keyword">do</span>
+      <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">echo</span> $opt <span class="token operator">|</span> <span class="token function">grep</span> <span class="token string">'.*-temp-path'</span><span class="token variable">`</span></span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+          <span class="token assign-left variable">value</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">echo</span> $opt <span class="token operator">|</span> <span class="token function">cut</span> -d <span class="token string">"="</span> -f <span class="token number">2</span><span class="token variable">`</span></span> 
+          <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -d <span class="token string">"<span class="token variable">$value</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+              <span class="token comment"># echo "creating" $value </span>
+              <span class="token function">mkdir</span> -p <span class="token variable">$value</span> <span class="token operator">&amp;&amp;</span> <span class="token function">chown</span> -R <span class="token variable">$user</span> <span class="token variable">$value</span> 
+          <span class="token keyword">fi</span>
+      <span class="token keyword">fi</span>
+  <span class="token keyword">done</span>
+<span class="token punctuation">&#125;</span> 
   
-start() &#123; 
-    [ -x $nginx ] || exit 5 
-    [ -f $NGINX_CONF_FILE ] || exit 6 
+<span class="token function-name function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    <span class="token punctuation">[</span> -x <span class="token variable">$nginx</span> <span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">5</span> 
+    <span class="token punctuation">[</span> -f <span class="token variable">$NGINX_CONF_FILE</span> <span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">6</span> 
     make_dirs 
-    echo -n $&quot;Starting $prog: &quot;
-    daemon $nginx -c $NGINX_CONF_FILE 
-    retval&#x3D;$? 
-    echo
-    [ $retval -eq 0 ] &amp;&amp; touch $lockfile 
-    return $retval 
-&#125; 
+    <span class="token builtin class-name">echo</span> -n $<span class="token string">"Starting <span class="token variable">$prog</span>: "</span>
+    daemon <span class="token variable">$nginx</span> -c <span class="token variable">$NGINX_CONF_FILE</span> 
+    <span class="token assign-left variable">retval</span><span class="token operator">=</span><span class="token variable">$?</span> 
+    <span class="token builtin class-name">echo</span>
+    <span class="token punctuation">[</span> <span class="token variable">$retval</span> -eq <span class="token number">0</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token function">touch</span> <span class="token variable">$lockfile</span> 
+    <span class="token builtin class-name">return</span> <span class="token variable">$retval</span> 
+<span class="token punctuation">&#125;</span> 
   
-stop() &#123; 
-    echo -n $&quot;Stopping $prog: &quot;
-    killproc $prog -QUIT 
-    retval&#x3D;$? 
-    echo
-    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile 
-    return $retval 
-&#125; 
+<span class="token function-name function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    <span class="token builtin class-name">echo</span> -n $<span class="token string">"Stopping <span class="token variable">$prog</span>: "</span>
+    killproc <span class="token variable">$prog</span> -QUIT 
+    <span class="token assign-left variable">retval</span><span class="token operator">=</span><span class="token variable">$?</span> 
+    <span class="token builtin class-name">echo</span>
+    <span class="token punctuation">[</span> <span class="token variable">$retval</span> -eq <span class="token number">0</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token function">rm</span> -f <span class="token variable">$lockfile</span> 
+    <span class="token builtin class-name">return</span> <span class="token variable">$retval</span> 
+<span class="token punctuation">&#125;</span> 
   
-restart() &#123; 
-    configtest || return $? 
+<span class="token function-name function">restart</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    configtest <span class="token operator">||</span> <span class="token builtin class-name">return</span> <span class="token variable">$?</span> 
     stop 
-    sleep 1 
+    <span class="token function">sleep</span> <span class="token number">1</span> 
     start 
-&#125; 
+<span class="token punctuation">&#125;</span> 
   
-reload() &#123; 
-    configtest || return $? 
-    echo -n $&quot;Reloading $prog: &quot;
-    killproc $nginx -HUP 
-    RETVAL&#x3D;$? 
-    echo
-&#125; 
+<span class="token function-name function">reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    configtest <span class="token operator">||</span> <span class="token builtin class-name">return</span> <span class="token variable">$?</span> 
+    <span class="token builtin class-name">echo</span> -n $<span class="token string">"Reloading <span class="token variable">$prog</span>: "</span>
+    killproc <span class="token variable">$nginx</span> -HUP 
+    <span class="token assign-left variable">RETVAL</span><span class="token operator">=</span><span class="token variable">$?</span> 
+    <span class="token builtin class-name">echo</span>
+<span class="token punctuation">&#125;</span> 
   
-force_reload() &#123; 
+<span class="token function-name function">force_reload</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
     restart 
-&#125; 
+<span class="token punctuation">&#125;</span> 
   
-configtest() &#123; 
-  $nginx -t -c $NGINX_CONF_FILE 
-&#125; 
+<span class="token function-name function">configtest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+  <span class="token variable">$nginx</span> -t -c <span class="token variable">$NGINX_CONF_FILE</span> 
+<span class="token punctuation">&#125;</span> 
   
-rh_status() &#123; 
-    status $prog 
-&#125; 
+<span class="token function-name function">rh_status</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    status <span class="token variable">$prog</span> 
+<span class="token punctuation">&#125;</span> 
   
-rh_status_q() &#123; 
-    rh_status &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1 
-&#125; 
+<span class="token function-name function">rh_status_q</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+    rh_status <span class="token operator">></span>/dev/null <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span> 
+<span class="token punctuation">&#125;</span> 
   
-case &quot;$1&quot; in
-    start) 
-        rh_status_q &amp;&amp; exit 0 
-        $1 
-        ;; 
-    stop) 
-        rh_status_q || exit 0 
-        $1 
-        ;; 
-    restart|configtest) 
-        $1 
-        ;; 
-    reload) 
-        rh_status_q || exit 7 
-        $1 
-        ;; 
-    force-reload) 
+<span class="token keyword">case</span> <span class="token string">"<span class="token variable">$1</span>"</span> <span class="token keyword">in</span>
+    start<span class="token punctuation">)</span> 
+        rh_status_q <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">exit</span> <span class="token number">0</span> 
+        <span class="token variable">$1</span> 
+        <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    stop<span class="token punctuation">)</span> 
+        rh_status_q <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">0</span> 
+        <span class="token variable">$1</span> 
+        <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    restart<span class="token operator">|</span>configtest<span class="token punctuation">)</span> 
+        <span class="token variable">$1</span> 
+        <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    reload<span class="token punctuation">)</span> 
+        rh_status_q <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">7</span> 
+        <span class="token variable">$1</span> 
+        <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    force-reload<span class="token punctuation">)</span> 
         force_reload 
-        ;; 
-    status) 
+        <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    status<span class="token punctuation">)</span> 
         rh_status 
-        ;; 
-    condrestart|try-restart) 
-        rh_status_q || exit 0 
-            ;; 
-    *) 
-        echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;&quot;
-        exit 2 
-esac<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    condrestart<span class="token operator">|</span>try-restart<span class="token punctuation">)</span> 
+        rh_status_q <span class="token operator">||</span> <span class="token builtin class-name">exit</span> <span class="token number">0</span> 
+            <span class="token punctuation">;</span><span class="token punctuation">;</span> 
+    *<span class="token punctuation">)</span> 
+        <span class="token builtin class-name">echo</span> $<span class="token string">"Usage: <span class="token variable">$0</span> &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;"</span>
+        <span class="token builtin class-name">exit</span> <span class="token number">2</span> 
+<span class="token keyword">esac</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>b、添加权限</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">chmod +x &#x2F;etc&#x2F;init.d&#x2F;nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell"><span class="token function">chmod</span> +x /etc/init.d/nginx<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>c、重新加载系统启动文件</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl daemon-reload<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>d、启动并设置开机自启</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">systemctl start nginx
-[root@localhost ~]# &#x2F;sbin&#x2F;chkconfig nginx on ---开机启动<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token punctuation">[</span>root@localhost ~<span class="token punctuation">]</span><span class="token comment"># /sbin/chkconfig nginx on ---开机启动</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
 
